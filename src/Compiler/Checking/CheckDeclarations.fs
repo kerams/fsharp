@@ -4272,10 +4272,48 @@ module TcDeclarations =
 
     //-------------------------------------------------------------------------
 
+    let findProvidedType (ccu: CcuThunk) =
+        let rec inner (typ: ModuleOrNamespaceType) =
+            let tp =
+                typ.TypeDefinitions
+                |> List.tryPick (fun x ->
+                    match x.TypeReprInfo with
+                    | TProvidedTypeRepr info -> Some info.ProvidedType
+                    | _ -> None)
+
+            if tp.IsSome then
+                tp
+            else
+                typ.ModuleAndNamespaceDefinitions
+                |> List.map (fun x -> x.ModuleOrNamespaceType)
+                |> List.tryPick inner
+
+        ccu.RootModulesAndNamespaces
+        |> List.map (fun x -> x.ModuleOrNamespaceType)
+        |> List.pick inner
+
     /// Bind a collection of mutually recursive definitions in an implementation file
     let TcMutRecDefinitions (cenv: cenv) envInitial parent typeNames tpenv m scopem mutRecNSInfo (mutRecDefns: MutRecDefnsInitialData) isMutRec =
 
         let g = cenv.g
+
+        let mutRecDefns =
+            mutRecDefns
+            |> List.map (fun x ->
+                match x with
+                | MutRecShape.Tycon (SynTypeDefn (typeInfo = SynComponentInfo (attributes = atts)) as d) ->
+                    atts
+                    |> List.collect (fun x -> TcAttributes cenv envInitial AttributeTargets.Class x.Attributes)
+                    |> List.choose (fun x ->
+                        if x.TyconRef.DisplayName.Contains "Derive" then
+                            Some x.TyconRef
+                        else
+                            None)
+                    |> List.fold (fun currD tcref ->
+                        (findProvidedType tcref.nlr.Ccu).PApplyWithProvider((fun (_, provider) ->
+                            provider.GetType().GetMethod(tcref.DisplayName.Replace ("Attribute", "")).Invoke (provider, [| currD |]) :?> SynTypeDefn), range0).PUntaint(id, range0)) d
+                    |> MutRecShape.Tycon
+                | _ -> x)
 
         // Split the definitions into "core representations" and "members". The code to process core representations
         // is shared between processing of signature files and implementation files.
@@ -5155,6 +5193,36 @@ and TcMutRecDefsFinish cenv defs m =
 
 and TcModuleOrNamespaceElements cenv parent endm env xml mutRecNSInfo openDecls0 synModuleDecls =
   cancellable {
+    let synModuleDecls =
+        synModuleDecls
+        |> List.map (fun decl ->
+            match decl with
+            | SynModuleDecl.NestedModule (SynComponentInfo (attributes = atts) as c, isRec, decls, cont, m, trivia) ->
+                let decls =
+                    atts
+                    |> List.collect (fun x -> TcAttributes cenv env AttributeTargets.Class x.Attributes)
+                    |> List.choose (fun (Attrib (tyconRef = tcref; unnamedArgs = args)) ->
+                        if tcref.DisplayName.StartsWith "Generate" then
+                            let args =
+                                args
+                                |> List.choose (fun (AttribExpr (evaluated = expr)) ->
+                                    match expr with
+                                    | Expr.Const ((Const.String s), _, _) -> Some (box s)
+                                    | Expr.Const ((Const.Int32 s), _, _) -> Some (box s)
+                                    | _ -> None)
+
+                            Some (tcref, args)
+                        else
+                            None)
+                    |> List.fold (fun curr (tcref, vals) ->
+                        (TcDeclarations.findProvidedType tcref.nlr.Ccu).PApplyWithProvider((fun (_, provider) ->
+                            provider.GetType().GetMethod(tcref.DisplayName.Replace ("Attribute", "")).Invoke (provider, [| vals |]) :?> SynModuleDecl list), range0).PUntaint(id, range0)
+                        |> List.append curr) decls
+
+                SynModuleDecl.NestedModule (c, isRec, decls, cont, m, trivia)
+            | _ -> decl
+        )
+
     // Ensure the deref_nlpath call in UpdateAccModuleOrNamespaceType succeeds 
     if cenv.compilingCanonicalFslibModuleType then
         let checkXmlDocs = cenv.diagnosticOptions.CheckXmlDocs
