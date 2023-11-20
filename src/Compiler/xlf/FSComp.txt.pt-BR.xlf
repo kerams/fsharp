@@ -3537,11 +3537,6 @@
         <target state="translated">Modificadores de acessibilidade não são permitidos em campos de enumeração</target>
         <note />
       </trans-unit>
-      <trans-unit id="parsConsiderUsingSeparateRecordType">
-        <source>Consider using a separate record type instead</source>
-        <target state="translated">Considere usar um tipo de registro separado em vez disso</target>
-        <note />
-      </trans-unit>
       <trans-unit id="parsRecordFieldsCannotHaveVisibilityDeclarations">
         <source>Accessibility modifiers are not permitted on record fields. Use 'type R = internal ...' or 'type R = private ...' to give an accessibility to the whole representation.</source>
         <target state="translated">Modificadores de acessibilidade não são permitidos nos campos de registros. Use 'type R = internal ...' ou 'type R = private ...' para dar uma acessibilidade à representação inteira.</target>

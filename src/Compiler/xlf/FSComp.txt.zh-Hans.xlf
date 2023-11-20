@@ -3537,11 +3537,6 @@
         <target state="translated">不允许对枚举字段使用可访问性修饰符</target>
         <note />
       </trans-unit>
-      <trans-unit id="parsConsiderUsingSeparateRecordType">
-        <source>Consider using a separate record type instead</source>
-        <target state="translated">请考虑改用单独的记录类型</target>
-        <note />
-      </trans-unit>
       <trans-unit id="parsRecordFieldsCannotHaveVisibilityDeclarations">
         <source>Accessibility modifiers are not permitted on record fields. Use 'type R = internal ...' or 'type R = private ...' to give an accessibility to the whole representation.</source>
         <target state="translated">不允许对记录字段使用可访问性修饰符。请使用“type R = internal ...”或“type R = private ...”为整个表示形式给定可访问性。</target>

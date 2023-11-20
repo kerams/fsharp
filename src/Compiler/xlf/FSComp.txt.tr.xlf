@@ -3537,11 +3537,6 @@
         <target state="translated">Erişilebilirlik değiştiricilerine sabit listesi alanlarında izin verilmez</target>
         <note />
       </trans-unit>
-      <trans-unit id="parsConsiderUsingSeparateRecordType">
-        <source>Consider using a separate record type instead</source>
-        <target state="translated">Onun yerine ayrı bir kayıt türü kullanmayı deneyin</target>
-        <note />
-      </trans-unit>
       <trans-unit id="parsRecordFieldsCannotHaveVisibilityDeclarations">
         <source>Accessibility modifiers are not permitted on record fields. Use 'type R = internal ...' or 'type R = private ...' to give an accessibility to the whole representation.</source>
         <target state="translated">Kayıt alanlarında erişilebilirlik değiştiricilerine izin verilmez. Temsilin tamamına erişilebilirlik kazandırmak için 'type R = internal ...' veya 'type R = private ...' kullanın.</target>

@@ -3537,11 +3537,6 @@
         <target state="translated">액세스 가능성 한정자는 열거형 필드에서 허용되지 않습니다.</target>
         <note />
       </trans-unit>
-      <trans-unit id="parsConsiderUsingSeparateRecordType">
-        <source>Consider using a separate record type instead</source>
-        <target state="translated">대신 별도의 레코드 형식을 사용하세요.</target>
-        <note />
-      </trans-unit>
       <trans-unit id="parsRecordFieldsCannotHaveVisibilityDeclarations">
         <source>Accessibility modifiers are not permitted on record fields. Use 'type R = internal ...' or 'type R = private ...' to give an accessibility to the whole representation.</source>
         <target state="translated">액세스 가능성 한정자는 레코드 필드에서 허용되지 않습니다. 표현 전체에 액세스 가능성을 지정하려면 'type R = internal ...' 또는 'type R = private ...'을 사용하세요.</target>

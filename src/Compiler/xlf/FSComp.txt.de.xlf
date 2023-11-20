@@ -3537,11 +3537,6 @@
         <target state="translated">Zugriffsmodifizierer sind für Enumerationsfelder nicht zulässig.</target>
         <note />
       </trans-unit>
-      <trans-unit id="parsConsiderUsingSeparateRecordType">
-        <source>Consider using a separate record type instead</source>
-        <target state="translated">Verwenden Sie stattdessen einen separaten Datensatztyp.</target>
-        <note />
-      </trans-unit>
       <trans-unit id="parsRecordFieldsCannotHaveVisibilityDeclarations">
         <source>Accessibility modifiers are not permitted on record fields. Use 'type R = internal ...' or 'type R = private ...' to give an accessibility to the whole representation.</source>
         <target state="translated">Zugriffsmodifizierer sind für Datensatzfelder nicht zulässig. Verwenden Sie "type R = internal ..." oder "type R = private ...", um die Zugreifbarkeit für die vollständige Darstellung anzugeben.</target>

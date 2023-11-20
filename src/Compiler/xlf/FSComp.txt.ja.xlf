@@ -3537,11 +3537,6 @@
         <target state="translated">列挙型フィールドにアクセシビリティ修飾子は使用できません</target>
         <note />
       </trans-unit>
-      <trans-unit id="parsConsiderUsingSeparateRecordType">
-        <source>Consider using a separate record type instead</source>
-        <target state="translated">代わりに別のレコード型を使用してください</target>
-        <note />
-      </trans-unit>
       <trans-unit id="parsRecordFieldsCannotHaveVisibilityDeclarations">
         <source>Accessibility modifiers are not permitted on record fields. Use 'type R = internal ...' or 'type R = private ...' to give an accessibility to the whole representation.</source>
         <target state="translated">アクセシビリティ修飾子はレコード フィールドに使用できません。表現全体にアクセシビリティを付与するには、'type R = internal ...' または 'type R = private ...' を使用してください</target>

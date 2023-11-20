@@ -3537,11 +3537,6 @@
         <target state="translated">Modyfikatory dostępności są niedozwolone w polach wyliczeń</target>
         <note />
       </trans-unit>
-      <trans-unit id="parsConsiderUsingSeparateRecordType">
-        <source>Consider using a separate record type instead</source>
-        <target state="translated">Rozważ użycie osobnego typu rekordu</target>
-        <note />
-      </trans-unit>
       <trans-unit id="parsRecordFieldsCannotHaveVisibilityDeclarations">
         <source>Accessibility modifiers are not permitted on record fields. Use 'type R = internal ...' or 'type R = private ...' to give an accessibility to the whole representation.</source>
         <target state="translated">Modyfikatory dostępności są niedozwolone w polach rekordu. Użyj konstrukcji „type R = internal ...” lub „type R = private ...”, aby zapewnić dostępność całej reprezentacji.</target>

@@ -2689,14 +2689,14 @@ attrUnionCaseDecl:
   | opt_attributes opt_access recover
       { fun (xmlDoc, mBar) -> mkSynUnionCase $1 $2 (SynIdent(mkSynId mBar.EndRange "", None)) (SynUnionCaseKind.Fields []) mBar (xmlDoc, mBar) |> Choice2Of2 }
 
-  | opt_attributes opt_access unionCaseName OF unionCaseRepr
+  | opt_attributes opt_access unionCaseName OF unionCaseReprElements
       { mkSynUnionCase $1 $2 $3 (SynUnionCaseKind.Fields $5) (rhs2 parseState 1 5) >> Choice2Of2 }
 
-  | opt_attributes opt_access unionCaseName unionCaseRepr
+  | opt_attributes opt_access unionCaseName unionCaseReprElements
       { errorR (Error(FSComp.SR.parsMissingKeyword("of"), rhs2 parseState 3 4))
         mkSynUnionCase $1 $2 $3 (SynUnionCaseKind.Fields $4) (rhs2 parseState 1 4) >> Choice2Of2 }
 
-  | opt_attributes opt_access OF unionCaseRepr
+  | opt_attributes opt_access OF unionCaseReprElements
       { let mOf = rhs parseState 3
         let mId = mOf.StartRange
         errorR (Error(FSComp.SR.parsMissingUnionCaseName(), mOf))
@@ -2757,7 +2757,7 @@ firstUnionCaseDeclOfMany:
       { $1 }
 
 firstUnionCaseDecl:
-  | ident OF unionCaseRepr
+  | ident OF unionCaseReprElements
       { let trivia: SynUnionCaseTrivia = { BarRange = None }
         let xmlDoc = grabXmlDoc (parseState, [], 1)
         let mDecl = rhs2 parseState 1 3 |> unionRangeWithXmlDoc xmlDoc
@@ -2769,7 +2769,7 @@ firstUnionCaseDecl:
         let mDecl = rhs2 parseState 1 2 |> unionRangeWithXmlDoc xmlDoc
         Choice2Of2(SynUnionCase([], SynIdent($1, None), SynUnionCaseKind.Fields [], xmlDoc, None, mDecl, trivia)) }
 
-  | OF unionCaseRepr
+  | OF unionCaseReprElements
      { let mOf = rhs parseState 1
        let mId = mOf.StartRange
        errorR (Error(FSComp.SR.parsMissingUnionCaseName(), mOf))
@@ -2813,14 +2813,6 @@ unionCaseReprElement:
      { let xmlDoc = grabXmlDoc(parseState, [], 1)
        reportParseErrorAt ($1 : SynType).Range (FSComp.SR.tcUnexpectedFunTypeInUnionCaseField())
        mkSynAnonField ($1, xmlDoc) }
-
-unionCaseRepr:
-  | braceFieldDeclList
-     { errorR(Deprecated(FSComp.SR.parsConsiderUsingSeparateRecordType(), lhs parseState))
-       $1 }
-
-  | unionCaseReprElements
-     { $1 }
 
 /* A list of field declarations in a record type */
 recdFieldDeclList:
@@ -2887,7 +2879,7 @@ exconIntro:
   | ident
       { SynUnionCase([], SynIdent($1, None), SynUnionCaseKind.Fields [], PreXmlDoc.Empty, None, lhs parseState, { BarRange = None }) }
 
-  | ident OF unionCaseRepr
+  | ident OF unionCaseReprElements
       { SynUnionCase([], SynIdent($1, None), SynUnionCaseKind.Fields $3, PreXmlDoc.Empty, None, lhs parseState, { BarRange = None }) }
 
   | ident OF recover

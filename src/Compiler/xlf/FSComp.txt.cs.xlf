@@ -3537,11 +3537,6 @@
         <target state="translated">Modifikátory dostupnosti nejsou u polí výčtového typu povolené.</target>
         <note />
       </trans-unit>
-      <trans-unit id="parsConsiderUsingSeparateRecordType">
-        <source>Consider using a separate record type instead</source>
-        <target state="translated">Zvažte možnost použít místo toho samostatný typ záznamu.</target>
-        <note />
-      </trans-unit>
       <trans-unit id="parsRecordFieldsCannotHaveVisibilityDeclarations">
         <source>Accessibility modifiers are not permitted on record fields. Use 'type R = internal ...' or 'type R = private ...' to give an accessibility to the whole representation.</source>
         <target state="translated">Modifikátory dostupnosti nejsou v polích záznamů povolené. Pomocí type R = internal ... nebo type R = private ... předejte dostupnost celé reprezentaci.</target>

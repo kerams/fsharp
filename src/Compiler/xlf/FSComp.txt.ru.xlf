@@ -3537,11 +3537,6 @@
         <target state="translated">Использование модификаторов доступности в полях перечисления не допускается</target>
         <note />
       </trans-unit>
-      <trans-unit id="parsConsiderUsingSeparateRecordType">
-        <source>Consider using a separate record type instead</source>
-        <target state="translated">Вместо этого рекомендуется использовать отдельный тип записи</target>
-        <note />
-      </trans-unit>
       <trans-unit id="parsRecordFieldsCannotHaveVisibilityDeclarations">
         <source>Accessibility modifiers are not permitted on record fields. Use 'type R = internal ...' or 'type R = private ...' to give an accessibility to the whole representation.</source>
         <target state="translated">Использование модификаторов доступности в полях записи не допускается. Чтобы обеспечить доступность всего представления, используйте синтаксис "type R = internal ..." или "type R = private ...".</target>
