@@ -933,7 +933,7 @@ module PrintTypes =
         // Show nullness annotations unless explicitly turned off
         if denv.showNullnessAnnotations <> Some false then
             match nullness.Evaluate() with
-            | NullnessInfo.WithNull -> part2 ^^ wordL (tagText "| null")
+            | NullnessInfo.WithNull -> part2 ^^ wordL (tagText "|") ^^ wordL (tagKeyword "null")
             | NullnessInfo.WithoutNull -> part2
             | NullnessInfo.AmbivalentToNull -> part2 //^^ wordL (tagText "__maybenull")
         else
